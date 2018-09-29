@@ -68,7 +68,7 @@ if __name__ == '__main__':
         pomotodo_desc_list += [pomotodo['description']]
 
     print "[   ] Finding new task and todo ..."
-    if len(projects) > 0 & len(today_tasks):
+    if len(projects) > 0 and len(today_tasks):
         '''
         遍历每个task，获取其根据任务数拍扁后的任务名
         '''
