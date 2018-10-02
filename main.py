@@ -1,9 +1,12 @@
 # coding=utf-8
+import ConfigParser
+
 import todoist_api
 import pomotodo_api
 
-TODOIST_TOKEN = 'xxxxx'
-POMOTODO_TOKEN = 'xxxxx'
+CONFIG_PATH = 'config.ini'
+TODOIST_TOKEN = 'your token here'
+POMOTODO_TOKEN = 'your token here'
 
 map_projects_by_id = {}
 map_task_list_by_project_id = {}
@@ -45,6 +48,15 @@ def get_horizontal_task_name(project_id, order, indent, content):
 
 
 if __name__ == '__main__':
+
+    config = ConfigParser.ConfigParser()
+    config.read(CONFIG_PATH)
+
+    if config.has_option('todoist', 'token'):
+        TODOIST_TOKEN = config.get('todoist', 'token')
+
+    if config.has_option('pomotodo', 'token'):
+        POMOTODO_TOKEN = config.get('pomotodo', 'token')
 
     print "[TODOIST] Downloading project list ..."
     projects = todoist_api.get_all_projects(TODOIST_TOKEN)
