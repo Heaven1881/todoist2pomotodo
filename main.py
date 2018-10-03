@@ -1,5 +1,6 @@
 # coding=utf-8
 import ConfigParser
+import datetime
 
 import todoist_api
 import pomotodo_api
@@ -77,8 +78,10 @@ if __name__ == '__main__':
         if 'id' in proj and 'name' in proj:
             map_projects_by_id[proj['id']] = proj
 
+    tomorrow_date = datetime.date.today() + datetime.timedelta(days=1)
+    tomorrow_date_str = '%d-%d-%d' % (tomorrow_date.year, tomorrow_date.month, tomorrow_date.day)
     print "[TODOIST] Downloading today's task ..."
-    today_tasks = todoist_api.get_active_tasks(TODOIST_TOKEN, task_filter="(overdue|today)")
+    today_tasks = todoist_api.get_active_tasks(TODOIST_TOKEN, task_filter="due before: %s" % tomorrow_date_str)
     print "[TODOIST] Downloading today's task ... OK"
 
     print "[POMOTODO] Downloading all todo ..."
@@ -90,7 +93,7 @@ if __name__ == '__main__':
         pomotodo_desc_list += [pomotodo['description']]
 
     print "[   ] Finding new task and todo ..."
-    if len(projects) > 0 and len(today_tasks):
+    if len(projects) > 0 and len(today_tasks) > 0:
         '''
         遍历每个task，获取其根据任务数拍扁后的任务名
         '''
