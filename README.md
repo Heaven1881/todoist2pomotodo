@@ -39,4 +39,8 @@ token=your token here
 python main.py
 ```
 
-默认情况下，只会将优先级不为0的待办添加到Pomotodo中，如果你希望添加
+默认情况下，只会将优先级不为0的待办添加到Pomotodo中，如果你希望添加所有待办，则按照如下所示修改`config.ini`中的配置：
+```
+[priority2pomo]
+enable=false
+```
